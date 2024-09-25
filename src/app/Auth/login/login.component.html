@@ -1,0 +1,60 @@
+<p-card header="Selamat Datang" styleClass=" mx-auto w-3 shadow-6">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div>
+      <input
+        pInputText
+        class="w-full mb-2 p-3 text-xl"
+        type="text"
+        placeholder="Username"
+        name="username"
+        ngModel
+        required
+        #username="ngModel"
+      />
+      @if (username.invalid && username.touched && username.dirty) {
+      <small class="text-red-500 inline-block mb-2">
+        Username tidak boleh kosong
+      </small>
+      }
+
+      <input
+        pInputText
+        class="w-full p-3 text-xl mb-2"
+        type="password"
+        placeholder="Password"
+        name="password"
+        ngModel
+        required
+        #password="ngModel"
+      />
+      @if (password.invalid && password.touched && password.dirty) {
+        <small class="text-red-500 inline-block mb-2">
+          Password tidak boleh kosong
+        </small>
+        }
+    </div>
+    <p-button
+      styleClass="p-0 mt-3 mb-6 text-blue-700"
+      label="Lupa Password?"
+      [link]="true"
+    />
+    <p-button
+      type="submit"
+      styleClass="w-full bg-blue-700"
+      label="Masuk"
+      size="large"
+      [rounded]="true"
+    />
+  </form>
+  <p class="text-center">
+    Belum terdaftar? klik
+    <p-button
+      styleClass="m-0 p-0"
+      routerLink="/auth/registration"
+      [link]="true"
+      label="disini"
+    />
+  </p>
+</p-card>
+
+<app-footer />

@@ -1,0 +1,44 @@
+<p-card styleClass="my-6">
+  <ng-template pTemplate="title">
+    <div class="flex flex-row justify-content-between">
+      <span>Tambah Penghasilan</span>
+      <p-button
+        routerLink="/penghasilan/summary"
+        icon="pi pi-arrow-left"
+        [text]="true"
+        severity="secondary"
+      />
+    </div>
+  </ng-template>
+  <form action="">
+    <div class="flex flex-column gap-3">
+      <div class="flex flex-column gap-2">
+        <label for="jenis-penghasilan">Jenis Penghasilan</label>
+        <p-dropdown
+          styleClass="w-full"
+          [options]="incomeTypes"
+          [(ngModel)]="incomeType"
+          optionLabel="name"
+          placeholder="Pilih"
+          name="jenis-penghasilan"
+        />
+      </div>
+      <div class="flex flex-column gap-2">
+        <label for="total-penghasilan">Total Penghasilan</label>
+        <input pInputText name="total-penghasilan" type="number" />
+      </div>
+      <div class="flex flex-column gap-2">
+        <label for="pph-final">PPh Final</label>
+        <input pInputText name="pph-final" type="number" />
+      </div>
+      <div class="flex flex-column gap-2">
+        <label for="pajak-dibayar">Pajak yang sudah dibayar/dipotong</label>
+        <input pInputText name="pajak-dibayar" type="number" />
+      </div>
+    </div>
+    <div class="mt-5 flex flex-row gap-2 justify-content-end">
+      <p-button label="Tambah" />
+      <p-button severity="secondary" label="Batal" />
+    </div>
+  </form>
+</p-card>

@@ -1,0 +1,61 @@
+<div
+    class="my-6 py-3 px-4 panel flex flex-row justify-content-between align-items-center"
+  >
+    <h2 class="m-0 text-lg font-normal">Besaran pajak yang dibayarkan</h2>
+    <div class="text-center">
+      <p class="m-0 text-white bg-blue-700 border-round px-2 py-1 mb-1">
+        Kurang Bayar
+      </p>
+      <p class="m-0 font-semibold">Rp100.000.000</p>
+    </div>
+  </div>
+
+  <p-card>
+    <ng-template pTemplate="title">
+      <div class="flex flex-row justify-content-between align-items-center">
+        <span>Daftar Penghasilan</span>
+        <p-button
+          routerLink="../add"
+          styleClass="bg-blue-700"
+          label="Tambah"
+          icon="pi pi-plus"
+          size="small"
+        />
+      </div>
+    </ng-template>
+
+    <p-dataView #dv [value]="incomes" [rows]="4" [paginator]="true">
+      <ng-template pTemplate="list" let-incomes>
+        <div class="grid grid-nogutter">
+          @for (income of incomes; track $index) {
+          <div
+            class="col-12 gap-3 flex flex-row p-4"
+            [ngClass]="{ 'border-top-1 surface-border': !$first }"
+          >
+            <span
+              class="font-semibold text-white w-4rem h-4rem bg-blue-700 text-xl border-circle flex justify-content-center align-items-center"
+              >{{ income.taxRate }}%</span
+            >
+            <div class="flex-grow-1">
+              <span class="text-xs font-light inline-block mb-2">{{
+                income.type
+              }}</span>
+              <div class="flex flex-row justify-content-between mb-1">
+                <p class="m-0 text-sm">Total Penghasilan</p>
+                <p class="m-0 text-sm font-semibold">
+                  {{ income.totalIncome | currency : "Rp" }}
+                </p>
+              </div>
+              <div class="flex flex-row justify-content-between">
+                <p class="m-0 text-sm">Pajak yang harus dibayar</p>
+                <p class="m-0 text-sm font-semibold">
+                  {{ income.tax | currency : "Rp" }}
+                </p>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </ng-template>
+    </p-dataView>
+  </p-card>

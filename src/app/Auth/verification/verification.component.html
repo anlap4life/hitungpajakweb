@@ -1,0 +1,49 @@
+<div class="mx-auto w-4">
+  <h1>Verifikasi Akun</h1>
+  <p>
+    Kirim kode verifikasi akun ke
+    <p-button styleClass="m-0 p-0" label="nomor handphone" [link]="true" /> atau
+    <p-button styleClass="m-0 p-0" label="email" [link]="true" />
+  </p>
+
+  <div class="flex flex-row justify-content-between">
+    <input
+      class="w-5rem h-5rem text-5xl text-center"
+      type="text"
+      maxLength="1"
+    />
+    <input
+      class="w-5rem h-5rem text-5xl text-center"
+      type="text"
+      maxLength="1"
+    />
+    <input
+      class="w-5rem h-5rem text-5xl text-center"
+      type="text"
+      maxLength="1"
+    />
+    <input
+      class="w-5rem h-5rem text-5xl text-center"
+      type="text"
+      maxLength="1"
+    />
+    <input
+      class="w-5rem h-5rem text-5xl text-center"
+      type="text"
+      maxLength="1"
+    />
+  </div>
+  <p class="text-sm">
+    Kode verifikasi akan hangus dalam
+    <span class="text-blue-700 font-bold">12:00</span> menit
+  </p>
+  <p-button
+    type="button"
+    styleClass="w-full bg-blue-700 mt-4"
+    label="Verifikasi"
+    size="large"
+    [rounded]="true"
+  />
+</div>
+
+

@@ -1,0 +1,48 @@
+<p-card styleClass=" mx-auto w-3 shadow-6">
+  <ng-template pTemplate="title">
+    <div class="flex flex-row justify-content-between">
+      <span>Buat Akun</span>
+      <p-button routerLink="/auth/login"
+        icon="pi pi-arrow-left"
+        [text]="true"
+        severity="secondary"
+      />
+    </div>
+  </ng-template>
+  <form (ngSubmit)="onSubmit($event)" action="" class="flex flex-column gap-3">
+    <div class="flex flex-column gap-2">
+      <label for="username">Nomor Handphone</label>
+      <input pInputText id="username" aria-describedby="username-help" />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="username">Email</label>
+      <input pInputText id="username" aria-describedby="username-help" />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="username">Password</label>
+      <input pInputText id="username" aria-describedby="username-help" />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="username">Profesi</label>
+      <p-dropdown
+        styleClass="w-full"
+        [options]="profesies"
+        [(ngModel)]="profesi"
+        optionLabel="name"
+        placeholder="Pilih"
+        name="profesi"
+      />
+    </div>
+    <p-button
+      type="submit"
+      styleClass="w-full bg-blue-700 mt-4"
+      label="Daftar"
+      size="large"
+      [rounded]="true"
+    />
+  </form>
+</p-card>
+
+<app-footer />
+
+<p-confirmDialog />

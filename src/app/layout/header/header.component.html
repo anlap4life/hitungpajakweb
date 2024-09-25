@@ -1,0 +1,25 @@
+<p-menubar
+  styleClass="px-5 py-2 bg-blue-700 text-white border-noround border-none"
+>
+  <ng-template pTemplate="start">
+    <h1 class="m-0 text-lg font-bold">Hitung Pajakku</h1>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <div class="flex flex-row align-items-center gap-2">
+      <p-button
+        styleClass="bg-yellow-500 mr-4"
+        icon="pi pi-crown"
+        label="Try Premium"
+        size="small"
+        [raised]="true"
+      />
+      <span>Rayana</span>
+      <p-avatar
+        [style]="{ 'background-color': '#fff', color: '#094DB1' }"
+        label="R"
+        shape="circle"
+      />
+    </div>
+  </ng-template>
+</p-menubar>
