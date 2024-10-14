@@ -1,15 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
+import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
-import { RouterLink } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { RouterLink, Router } from '@angular/router';
 
 import { FooterComponent } from '../../layout/footer/footer.component';
+import { AuthService } from '../../service/auth.service';
+import { Profesion } from '../../model/user.model';
+import { RegistrationRequest } from '../../model/auth.model';
 
 @Component({
   selector: 'app-registration',
@@ -21,36 +26,52 @@ import { FooterComponent } from '../../layout/footer/footer.component';
     CardModule,
     DropdownModule,
     ConfirmDialogModule,
+    ToastModule,
     RouterLink,
     FooterComponent,
   ],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css',
 })
 export class RegistrationComponent implements OnInit {
-  username = '';
-  password = '';
-  passwordConfirmed = '';
-  profesi = '';
   profesies: { name: string; code: string }[] | undefined;
 
   private confirmationService = inject(ConfirmationService);
+  private messageService = inject(MessageService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.profesies = [
       {
         name: 'Dokter',
-        code: '1',
+        code: '0',
       },
       {
         name: 'Arsitek',
-        code: '2',
+        code: '1',
       },
     ];
   }
 
-  onSubmit(event: Event) {
+  private getProfesion(profesionCode: string): Profesion {
+    let profesion: Profesion;
+    switch (profesionCode) {
+      case '0':
+        profesion = Profesion.DOKTER;
+        break;
+      case '1':
+        profesion = Profesion.KONSULTAN;
+        break;
+      default:
+        profesion = Profesion.OTHER;
+    }
+
+    return profesion;
+  }
+
+  onSubmit(formData: NgForm, event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'Apakah anda yakin dengan pengisian data anda?',
@@ -60,12 +81,34 @@ export class RegistrationComponent implements OnInit {
       rejectIcon: 'none',
       rejectButtonStyleClass: 'p-button-text',
       accept: () => {
-        console.log('accept');
-        // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+        const formValues = formData.value;
+
+        const userToRegister: RegistrationRequest = {
+          phone: formValues.phone,
+          username: formValues.email,
+          password: formValues.password,
+          name: formValues.name,
+          profesion: this.getProfesion(formValues.profesi.code),
+        };
+
+        const authResponse = this.authService.register(userToRegister);
+
+        // kalo gagal kasih notif gagal kenapa.
+        if (authResponse.status === '0') {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Gagal Registrasi',
+            detail: authResponse.message,
+          });
+          return;
+        }
+
+        this.router.navigate(['/auth', 'verification'], {
+          replaceUrl: true,
+        });
       },
       reject: () => {
-        console.log('reject');
-        // this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        this.confirmationService.close();
       },
     });
   }

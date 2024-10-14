@@ -2,32 +2,46 @@
   <ng-template pTemplate="title">
     <div class="flex flex-row justify-content-between">
       <span>Buat Akun</span>
-      <p-button routerLink="/auth/login"
+      <p-button
+        routerLink="/auth/login"
         icon="pi pi-arrow-left"
         [text]="true"
         severity="secondary"
       />
     </div>
   </ng-template>
-  <form (ngSubmit)="onSubmit($event)" action="" class="flex flex-column gap-3">
+  <form
+    #form="ngForm"
+    (ngSubmit)="onSubmit(form, $event)"
+    action=""
+    class="flex flex-column gap-3"
+  >
     <div class="flex flex-column gap-2">
       <label for="username">Nomor Handphone</label>
-      <input pInputText id="username" aria-describedby="username-help" />
+      <input ngModel pInputText name="phone" aria-describedby="username-help" />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="username">Nama Lengkap</label>
+      <input ngModel pInputText name="name" aria-describedby="username-help" />
     </div>
     <div class="flex flex-column gap-2">
       <label for="username">Email</label>
-      <input pInputText id="username" aria-describedby="username-help" />
+      <input ngModel pInputText name="email" aria-describedby="username-help" />
     </div>
     <div class="flex flex-column gap-2">
       <label for="username">Password</label>
-      <input pInputText id="username" aria-describedby="username-help" />
+      <input ngModel pInputText name="password" />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="username">Ulangi Password</label>
+      <input ngModel pInputText name="password-reentered" />
     </div>
     <div class="flex flex-column gap-2">
       <label for="username">Profesi</label>
       <p-dropdown
+        ngModel
         styleClass="w-full"
         [options]="profesies"
-        [(ngModel)]="profesi"
         optionLabel="name"
         placeholder="Pilih"
         name="profesi"
@@ -46,3 +60,4 @@
 <app-footer />
 
 <p-confirmDialog />
+<p-toast />

@@ -1,16 +1,14 @@
-export interface AuthResponse {
-    status: '0' | '1';
-    message: string;
-    user?: User
-}
-
 export interface User {
+    id?: number,
+    phone: string,
     username: string;
     password: string;
     name: string;
     role: Role;
+    profesion: Profesion,
     subscription: Subscription;
     isLoggedIn: '0' | '1'
+    verified: boolean
 }
 
 export enum Role {
@@ -22,4 +20,10 @@ export enum Subscription {
     FREE,
     PREMIUM,
     PREMIUM_CONSULTANT
+}
+
+export enum Profesion {
+    DOKTER,
+    KONSULTAN,
+    OTHER,
 }
